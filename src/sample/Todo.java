@@ -16,9 +16,15 @@ public class Todo implements Comparable<Todo> {
 
     public Todo(String name, String dueDate, String notes) {
         this(name);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
-        this.dueDate = LocalDate.parse(dueDate, formatter);
-        this.notes = notes;
+
+        if (dueDate != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+            this.dueDate = LocalDate.parse(dueDate, formatter);
+        }
+        if (notes != null) {
+            this.notes = notes;
+        }
+
     }
 
     public String getName() {

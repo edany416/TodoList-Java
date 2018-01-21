@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
@@ -12,42 +13,6 @@ public class StageController {
 
     private static Stage currentStage;
 
-    /**
-     * This method launches the create new task
-     * stage when the create new task button is tapped
-     */
-    static void launchNewTodoStage() {
-        Stage stage = new Stage();
-        stage.setResizable(false);
-        stage.setTitle("Create Todo");
-
-        currentStage = stage;
-
-        GridPane pane = new GridPane();
-        pane.setPadding(new Insets(11.5, 12.5, 13.5, 14.5));
-        pane.setHgap(5.5);
-        pane.setVgap(5.5);
-        TextField nameField = new TextField();
-        DatePicker dueDate = new DatePicker();
-        pane.add(new Label("Todo:"),0,0);
-        pane.add(nameField, 1, 0);
-        pane.add(new Label("Due Date:"),0, 1);
-        pane.add(dueDate, 1, 1);
-        pane.add(new Label("Notes:"),0, 2);
-
-        TextArea notesArea = new TextArea();
-        notesArea.setPrefRowCount(10);
-        pane.add(notesArea, 1, 2);
-
-        Button saveButton = new Button("Save");
-        pane.add(saveButton, 0, 3);
-
-        Listeners.saveTodoListener(saveButton, nameField, dueDate, notesArea);
-
-        Scene scene = new Scene(pane);
-        stage.setScene(scene);
-        stage.show();
-    }
 
     /**
      * This method launched the task view stage when a task
@@ -82,14 +47,27 @@ public class StageController {
         pane.add(new Label("Notes:"),0, 2);
 
         if (selectedTodo.getDueDate() != null) {
+            Label daysUntilDueLabel;
             int daysUntilDue = selectedTodo.getDueDate().getDayOfMonth() -
                     LocalDate.now().getDayOfMonth();
-            Label daysUntilDueLabel = new Label("Due in " + daysUntilDue + " days");
+
+            if (daysUntilDue > 0) {
+                daysUntilDueLabel = new Label("Due in " + daysUntilDue + " days");
+            } else if (daysUntilDue == 0) {
+                daysUntilDueLabel = new Label("DUE TODAY");
+            } else {
+                daysUntilDueLabel = new Label("Due " + Math.abs(daysUntilDue) + " days ago" );
+                daysUntilDueLabel.setTextFill(Color.RED);
+            }
+
             pane.add(daysUntilDueLabel, 2, 1);
         }
 
         TextArea notesArea = new TextArea();
-        notesArea.setText(selectedTodo.getNotes());
+        if (selectedTodo.getNotes() != null) {
+            notesArea.setText(selectedTodo.getNotes());
+        }
+
         notesArea.setEditable(false);
 
         notesArea.setPrefRowCount(10);

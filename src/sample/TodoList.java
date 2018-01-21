@@ -18,19 +18,19 @@ public class TodoList {
     }
 
     static void addTodo(Todo newTodo) {
-        todoList.add(newTodo);
+        getTodoListInstance().todoList.add(newTodo);
     }
 
     static void removeTodo(Todo todo) {
-        todoList.remove(todo);
+        getTodoListInstance().todoList.remove(todo);
     }
 
     static ObservableList<Todo> getTodoList() {
-        return todoList;
+        return getTodoListInstance().todoList;
     }
 
     static Todo getTodoAtIndex(int index) {
-        return todoList.get(index);
+        return getTodoListInstance().todoList.get(index);
     }
 
     static void sortByDueDate() {

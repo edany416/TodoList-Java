@@ -8,17 +8,26 @@ import org.json.simple.parser.ParseException;
 import java.io.*;
 import java.util.Iterator;
 
-public class PersistanceService {
+public class PersistenceService {
 
     static void saveData() {
         JSONObject obj  = new JSONObject();
         JSONArray todoContainer = new JSONArray();
-        for(int i = 0; i < TodoList.getTodoListInstance().getTodoList().size(); i++) {
+        for(int i = 0; i < TodoList.getTodoList().size(); i++) {
             JSONObject todoData = new JSONObject();
-            Todo todoToSave = TodoList.getTodoListInstance().getTodoAtIndex(i);
+            Todo todoToSave = TodoList.getTodoAtIndex(i);
             todoData.put("Name", todoToSave.getName());
-            todoData.put("DueDate", todoToSave.getDueDate().toString());
-            todoData.put("Notes", todoToSave.getNotes());
+            if (todoToSave.getDueDate() != null) {
+                todoData.put("DueDate", todoToSave.getDueDate().toString());
+            } else {
+                todoData.put("DueDate", null);
+            }
+            if (todoToSave.getNotes() != null) {
+                todoData.put("Notes", todoToSave.getNotes());
+            } else {
+                todoData.put("Notes", null);
+            }
+
             todoContainer.add(todoData);
         }
 
@@ -43,7 +52,6 @@ public class PersistanceService {
         try {
             File dataFile = new File("TodoFile");
             if (dataFile.exists() && dataFile.length() != 0) {
-                System.out.println("File found and stuff");
                 Object parsedObj = parser.parse(new FileReader(dataFile.getName()));
                 JSONObject jsonObject = (JSONObject) parsedObj;
                 JSONArray todoContainer = (JSONArray) jsonObject.get("TodoContainer");
@@ -54,7 +62,7 @@ public class PersistanceService {
                     String dueDate = (String)obj.get("DueDate");
                     String notes = (String)obj.get("Notes");
                     Todo todo = new Todo(name, dueDate, notes);
-                    TodoList.getTodoListInstance().addTodo(todo);
+                    TodoList.addTodo(todo);
                 }
             }
         } catch (FileNotFoundException e) {
