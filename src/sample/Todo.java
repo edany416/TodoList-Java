@@ -2,39 +2,52 @@ package sample;
 
 import javafx.scene.control.DatePicker;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-public class Todo {
+public class Todo implements Comparable<Todo> {
 
-        private String name;
-        private LocalDate dueDate;
-        private String notes;
+    private String name;
+    private LocalDate dueDate;
+    private String notes;
 
-        public Todo(String name) {
-            this.name = name;
-        }
+    public Todo(String name) {
+        this.name = name;
+    }
 
-        public String getName() {
-            return name;
-        }
+    public Todo(String name, String dueDate, String notes) {
+        this(name);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+        this.dueDate = LocalDate.parse(dueDate, formatter);
+        this.notes = notes;
+    }
 
-        public LocalDate getDueDate() {
-            return dueDate;
-        }
+    public String getName() {
+        return name;
+    }
 
-        public String getNotes() {
-            return notes;
-        }
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
 
-        public void setDueDate(DatePicker dueDate) {
-            this.dueDate = dueDate.getValue();
-        }
+    public String getNotes() {
+        return notes;
+    }
 
-        public void setNote(String notes) {
-            this.notes = notes;
-        }
+    public void setDueDate(DatePicker dueDate) {
+        this.dueDate = dueDate.getValue();
+    }
 
-        @Override
-        public String toString() {
-            return name;
-        }
+    public void setNote(String notes) {
+        this.notes = notes;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    @Override
+    public int compareTo(Todo o) {
+        return this.dueDate.compareTo(o.dueDate);
+    }
 }

@@ -2,12 +2,10 @@ package sample;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 public class TodoList {
 
     private static TodoList todoListInstance = null;
     private static ObservableList<Todo> todoList;
-
 
     public static TodoList getTodoListInstance() {
         if(todoListInstance == null) {
@@ -33,5 +31,9 @@ public class TodoList {
 
     static Todo getTodoAtIndex(int index) {
         return todoList.get(index);
+    }
+
+    static void sortByDueDate() {
+        FXCollections.sort(todoList);
     }
 }

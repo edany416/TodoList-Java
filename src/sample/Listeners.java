@@ -3,17 +3,25 @@ package sample;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 
 public class Listeners {
 
     static void selectedIndexListener(ListView<Todo> listView) {
-        listView.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                int selectedTodoIndex = listView.getSelectionModel().getSelectedIndex();
-                StageController.launchSelectedTodoStage(TodoList.getTodoListInstance().getTodoAtIndex(selectedTodoIndex));
-            }
+
+        listView.setCellFactory(lv -> {
+            ListCell<Todo> cell = new ListCell<Todo>() {
+                @Override
+                protected void updateItem(Todo item, boolean empty) {
+                    super.updateItem(item, empty);
+                    setText(item == null ? "" : item.toString());
+                }
+            };
+            cell.setOnMouseClicked(e -> {
+                if (! cell.isEmpty()) {
+                    StageController.launchSelectedTodoStage(cell.getItem());
+                }
+            });
+            return cell ;
         });
     }
 
