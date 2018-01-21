@@ -23,26 +23,29 @@ public class AddNewTodoViewController implements EventHandler{
     public void handle(final Event event) {
         final Object source = event.getSource();
         if (source.equals(view.getSaveButton())) {
-            if (view.getNameField().getText() != null && !view.getNameField().getText().isEmpty()) {
-                Todo newTodo;
-                newTodo = new Todo(view.getNameField().getText());
-
-                if (view.getDueDate().getValue() != null) {
-                    newTodo.setDueDate(view.getDueDate());
-                }
-
-                if (view.getNotesArea().getText() != null && !view.getNotesArea().getText().isEmpty()) {
-                    newTodo.setNote(view.getNotesArea().getText());
-                }
-
-                TodoList.addTodo(newTodo);
-                stage.close();
-            }
+            addNewTodo();
         }
-
     }
 
     public Scene getScene() {
         return view.getScene();
+    }
+
+    private void addNewTodo() {
+        if (view.getNameField().getText() != null && !view.getNameField().getText().isEmpty()) {
+            Todo newTodo;
+            newTodo = new Todo(view.getNameField().getText());
+
+            if (view.getDueDate().getValue() != null) {
+                newTodo.setDueDate(view.getDueDate());
+            }
+
+            if (view.getNotesArea().getText() != null && !view.getNotesArea().getText().isEmpty()) {
+                newTodo.setNote(view.getNotesArea().getText());
+            }
+
+            TodoList.addTodo(newTodo);
+            stage.close();
+        }
     }
 }

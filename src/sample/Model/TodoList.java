@@ -3,6 +3,11 @@ package sample.Model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+
 public class TodoList {
 
     private static TodoList todoListInstance = null;
@@ -35,6 +40,23 @@ public class TodoList {
     }
 
     public static void sortByDueDate() {
-        FXCollections.sort(todoList);
+        ArrayList<Todo> todosWithDate = new ArrayList<>();
+        ArrayList<Todo>  todosWithoutDate = new ArrayList<>();
+        Iterator<Todo> itr = todoList.iterator();
+
+        while(itr.hasNext()) {
+            Todo todo = itr.next();
+            if (todo.getDueDate() != null) {
+                todosWithDate.add(todo);
+            } else {
+                todosWithoutDate.add(todo);
+            }
+        }
+
+        Collections.sort(todosWithDate);
+        todosWithDate.addAll(todosWithoutDate);
+        todoList.clear();
+        todoList.addAll(todosWithDate);
+
     }
 }
