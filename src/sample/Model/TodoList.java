@@ -1,7 +1,8 @@
-package sample;
+package sample.Model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 public class TodoList {
 
     private static TodoList todoListInstance = null;
@@ -17,23 +18,23 @@ public class TodoList {
         return todoListInstance;
     }
 
-    static void addTodo(Todo newTodo) {
+    public static void addTodo(Todo newTodo) {
         getTodoListInstance().todoList.add(newTodo);
     }
 
-    static void removeTodo(Todo todo) {
+    public static void removeTodo(Todo todo) {
         getTodoListInstance().todoList.remove(todo);
     }
 
-    static ObservableList<Todo> getTodoList() {
+    public static ObservableList<Todo> getTodoList() {
         return getTodoListInstance().todoList;
     }
 
-    static Todo getTodoAtIndex(int index) {
+    public static Todo getTodoAtIndex(int index) {
         return getTodoListInstance().todoList.get(index);
     }
 
-    static void sortByDueDate() {
+    public static void sortByDueDate() {
         FXCollections.sort(todoList);
     }
 }

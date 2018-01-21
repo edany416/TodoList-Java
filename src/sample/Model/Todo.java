@@ -1,4 +1,4 @@
-package sample;
+package sample.Model;
 
 import javafx.scene.control.DatePicker;
 import java.time.LocalDate;

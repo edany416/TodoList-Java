@@ -1,6 +1,8 @@
 package sample;
 
-public class SelectedTodoStageController {
+import sample.Model.Todo;
+
+public class SelectedTodoController {
 
     private static Todo selectedTodo;
 

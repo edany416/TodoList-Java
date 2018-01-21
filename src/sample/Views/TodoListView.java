@@ -1,5 +1,6 @@
-package sample;
+package sample.Views;
 
+import sample.ViewControllers.TodoListViewController;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -7,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import sample.Model.Todo;
 
 
 public class TodoListView {
@@ -15,7 +17,7 @@ public class TodoListView {
     private ListView<Todo> listView;
     private Scene scene;
 
-    TodoListView(ObservableList<Todo> todoList, final TodoListViewController vc) {
+    public TodoListView(ObservableList<Todo> todoList, final TodoListViewController vc) {
         //Pane setup
         VBox container = new VBox();
         HBox buttonPane = new HBox();
