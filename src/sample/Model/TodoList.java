@@ -12,6 +12,7 @@ public class TodoList {
 
     private static TodoList todoListInstance = null;
     private static ObservableList<Todo> todoList;
+    private static Todo selectedTodo;
 
     public static TodoList getTodoListInstance() {
         if(todoListInstance == null) {
@@ -58,5 +59,13 @@ public class TodoList {
         todoList.clear();
         todoList.addAll(todosWithDate);
 
+    }
+
+    public static void setSelectedTodo(Todo selectedTodo) {
+        TodoList.selectedTodo = selectedTodo;
+    }
+
+    public static Todo getSelectedTodo() {
+        return selectedTodo;
     }
 }

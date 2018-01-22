@@ -1,5 +1,6 @@
 package sample.Views;
 
+import javafx.stage.Stage;
 import sample.ViewControllers.AddNewTodoViewController;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -13,6 +14,7 @@ public class AddNewTodoView {
     private TextField nameField;
     private DatePicker dueDate;
     private TextArea notesArea;
+    private Stage stage;
 
     public AddNewTodoView(AddNewTodoViewController vc) {
 
@@ -40,10 +42,6 @@ public class AddNewTodoView {
 
     }
 
-    public Scene getScene() {
-        return scene;
-    }
-
     public Button getSaveButton() {
         return saveButton;
     }
@@ -58,5 +56,15 @@ public class AddNewTodoView {
 
     public TextArea getNotesArea() {
         return notesArea;
+    }
+
+    public void loadView() {
+        stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void closeView() {
+        stage.close();
     }
 }

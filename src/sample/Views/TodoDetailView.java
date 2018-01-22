@@ -1,5 +1,6 @@
 package sample.Views;
 
+import javafx.stage.Stage;
 import sample.ViewControllers.TodoDetailViewController;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -21,6 +22,7 @@ public class TodoDetailView {
     private Scene scene;
     private GridPane pane;
     private Label daysUntilDueLabel;
+    private Stage stage;
 
     public TodoDetailView(TodoDetailViewController vc) {
         nameField = new TextField();
@@ -80,10 +82,6 @@ public class TodoDetailView {
         return editButton;
     }
 
-    public Scene getScene() {
-        return scene;
-    }
-
     public void setNameFieldText(String text) {
         this.nameField.setText(text);
     }
@@ -118,6 +116,16 @@ public class TodoDetailView {
             pane.add(daysUntilDueLabel, 2, 1);
         }
 
+    }
+
+    public void loadView() {
+        stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void closeView() {
+        stage.close();
     }
 
 }

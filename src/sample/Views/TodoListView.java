@@ -1,5 +1,6 @@
 package sample.Views;
 
+import javafx.stage.Stage;
 import sample.ViewControllers.TodoListViewController;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -16,6 +17,7 @@ public class TodoListView {
     private Button sortByDueDateButton;
     private ListView<Todo> listView;
     private Scene scene;
+    private Stage stage;
 
     public TodoListView(ObservableList<Todo> todoList, final TodoListViewController vc) {
         //Pane setup
@@ -42,10 +44,6 @@ public class TodoListView {
         scene = new Scene(container, 500, 450);
     }
 
-    public Scene getScene() {
-        return scene;
-    }
-
     public Button getCreateNewTodoButton() {
         return createNewTodoButton;
     }
@@ -57,4 +55,11 @@ public class TodoListView {
     public Button getSortByDueDateButton() {
         return sortByDueDateButton;
     }
+
+    public void loadView() {
+        stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+    }
+
 }

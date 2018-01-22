@@ -5,21 +5,19 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import sample.Model.Todo;
+import sample.Model.ViewController;
 import sample.Views.TodoDetailView;
 import sample.Model.TodoList;
 
-public class TodoDetailViewController implements EventHandler {
+public class TodoDetailViewController extends ViewController implements EventHandler  {
 
     private TodoDetailView view;
     private Todo selectedTodo;
-    private Stage stage;
-
-    TodoDetailViewController(Todo selectedTodo, Stage stage) {
-
+    public TodoDetailViewController() {
+        selectedTodo = TodoList.getSelectedTodo();
         view = new TodoDetailView(this);
-        this.selectedTodo = selectedTodo;
-        this.stage = stage;
         populateDetailFields();
+        view.loadView();
 
     }
 
@@ -29,13 +27,9 @@ public class TodoDetailViewController implements EventHandler {
 
         if (source.equals(view.getCompleteTodoButton()) || source.equals(view.getDeleteTodoButton())) {
             TodoList.removeTodo(selectedTodo);
-            stage.close();
+            view.closeView();
         }
 
-    }
-
-    public Scene getScene() {
-        return view.getScene();
     }
 
     private void populateDetailFields() {

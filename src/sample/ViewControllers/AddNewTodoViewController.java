@@ -4,18 +4,18 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import sample.Model.ViewController;
 import sample.Views.AddNewTodoView;
 import sample.Model.Todo;
 import sample.Model.TodoList;
 
-public class AddNewTodoViewController implements EventHandler{
+public class AddNewTodoViewController extends ViewController implements EventHandler {
 
     private AddNewTodoView view;
-    private Stage stage;
 
-    public AddNewTodoViewController(Stage stage) {
+    public AddNewTodoViewController() {
         view = new AddNewTodoView(this);
-        this.stage = stage;
+        view.loadView();
 
     }
 
@@ -25,10 +25,6 @@ public class AddNewTodoViewController implements EventHandler{
         if (source.equals(view.getSaveButton())) {
             addNewTodo();
         }
-    }
-
-    public Scene getScene() {
-        return view.getScene();
     }
 
     private void addNewTodo() {
@@ -45,7 +41,7 @@ public class AddNewTodoViewController implements EventHandler{
             }
 
             TodoList.addTodo(newTodo);
-            stage.close();
+            view.closeView();
         }
     }
 }

@@ -3,22 +3,22 @@ package sample.ViewControllers;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.ListCell;
-import javafx.stage.Stage;
+import sample.Model.Identifiers;
 import sample.Model.Todo;
 import sample.Model.TodoList;
+import sample.Model.ViewController;
 import sample.Views.TodoListView;
 
 
-public class TodoListViewController implements EventHandler {
-    private final Stage primaryStage;
-    TodoListView view = new TodoListView(TodoList.getTodoList(), this);
 
-    public TodoListViewController(final Stage primaryStage) {
-        this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("Todo List");
-        this.primaryStage.setResizable(false);
+public class TodoListViewController extends ViewController implements EventHandler {
+    TodoListView view;
+
+    public TodoListViewController() {
+        super();
+        view = new TodoListView(TodoList.getTodoList(), this);
         setListViewCellFactory();
-        primaryStage.setScene(view.getScene());
+        view.loadView();
     }
 
     @Override
@@ -45,9 +45,8 @@ public class TodoListViewController implements EventHandler {
             };
             cell.setOnMouseClicked(e -> {
                 if (e.getClickCount() == 2 && !cell.isEmpty()) {
-                    Stage stage = new Stage();
-                    stage.setScene(new TodoDetailViewController(cell.getItem(), stage).getScene());
-                    stage.show();
+                    TodoList.setSelectedTodo(cell.getItem());
+                    this.transitionTo(Identifiers.TODO_DETAIL);
                 }
             });
             return cell ;
@@ -55,9 +54,7 @@ public class TodoListViewController implements EventHandler {
     }
 
     private void launchAddNewTodoStage() {
-        Stage addNewTodoStage = new Stage();
-        addNewTodoStage.setScene(new AddNewTodoViewController(addNewTodoStage).getScene());
-        addNewTodoStage.show();
+        this.transitionTo(Identifiers.ADD_NEW_TODO);
     }
 
 }
