@@ -1,6 +1,8 @@
 package sample.Views;
 
 import javafx.stage.Stage;
+import sample.Model.Todo;
+import sample.Model.TodoList;
 import sample.ViewControllers.TodoDetailViewController;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -9,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 
 public class TodoDetailView {
@@ -16,19 +19,21 @@ public class TodoDetailView {
     private TextField nameField;
     private DatePicker dueDate;
     private TextArea notesArea;
-    private Button completeTodoButton;
-    private Button deleteTodoButton;
-    private Button editButton;
+    private Button  leftButton;
+    private Button middleButton;
+    private Button rightButton;
     private Scene scene;
     private GridPane pane;
     private Label daysUntilDueLabel;
     private Stage stage;
+    private boolean isInEditMode;
 
     public TodoDetailView(TodoDetailViewController vc) {
         nameField = new TextField();
         nameField.setEditable(false);
         dueDate = new DatePicker();
         dueDate.setEditable(false);
+        isInEditMode = false;
 
         pane = new GridPane();
         pane.setPadding(new Insets(11.5, 12.5, 13.5, 14.5));
@@ -46,14 +51,15 @@ public class TodoDetailView {
         notesArea.setPrefRowCount(10);
         pane.add(notesArea, 1, 2);
 
-        completeTodoButton = new Button("Complete");
-        completeTodoButton.setOnAction(vc);
-        deleteTodoButton = new Button("Delete");
-        deleteTodoButton.setOnAction(vc);
-        editButton = new Button("Edit");
-        pane.add(completeTodoButton, 0, 3);
-        pane.add(deleteTodoButton, 1, 3);
-        pane.add(editButton, 2, 3);
+        leftButton = new Button();
+        leftButton.setOnAction(vc);
+        middleButton = new Button();
+        middleButton.setOnAction(vc);
+        rightButton = new Button();
+        rightButton.setOnAction(vc);
+        pane.add(leftButton, 0, 3);
+        pane.add(middleButton, 1, 3);
+        pane.add(rightButton, 2, 3);
 
         scene = new Scene(pane);
     }
@@ -70,16 +76,28 @@ public class TodoDetailView {
         return notesArea;
     }
 
-    public Button getCompleteTodoButton() {
-        return completeTodoButton;
+    public Button getLeftButton() {
+        return leftButton;
     }
 
-    public Button getDeleteTodoButton() {
-        return deleteTodoButton;
+    public Button getMiddleButton() {
+        return middleButton;
     }
 
-    public Button getEditButton() {
-        return editButton;
+    public Button getRightButton() {
+        return rightButton;
+    }
+
+    public void setLeftButtonText(String text) {
+        leftButton.setText(text);
+    }
+
+    public void setMiddleButtonText(String text) {
+        middleButton.setText(text);
+    }
+
+    public void setRightButtonText(String text) {
+        rightButton.setText(text);
     }
 
     public void setNameFieldText(String text) {
@@ -127,5 +145,26 @@ public class TodoDetailView {
     public void closeView() {
         stage.close();
     }
+
+    public void enableEditing() {
+        nameField.setEditable(true);
+        notesArea.setEditable(true);
+        dueDate.setEditable(true);
+        isInEditMode = true;
+    }
+
+    public void disableEditing() {
+        nameField.setEditable(false);
+        notesArea.setEditable(false);
+        dueDate.setEditable(false);
+        isInEditMode = false;
+    }
+
+    public boolean isEditable() {
+        return isInEditMode;
+    }
+
+
+
 
 }

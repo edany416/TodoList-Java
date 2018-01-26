@@ -68,4 +68,15 @@ public class TodoList {
     public static Todo getSelectedTodo() {
         return selectedTodo;
     }
+
+    public static void removeSelectedTodo() {
+        todoList.remove(selectedTodo);
+    }
+
+    public static void updatedSelectedTodo(Todo updatedTodo) {
+        todoList.remove(selectedTodo);
+        todoList.add(updatedTodo);
+        selectedTodo = updatedTodo;
+    }
+
 }
